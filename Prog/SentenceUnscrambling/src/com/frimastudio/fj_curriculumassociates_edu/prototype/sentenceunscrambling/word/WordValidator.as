@@ -30,26 +30,8 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			{
 				throw new Error("WordValidator is a singleton, and thus not intended for instantiation. Use WordValidator.Instance instead.");
 			}
-		}
-		
-		public function Load():void
-		{
-			var loader:URLLoader = new URLLoader();
-			loader.addEventListener(Event.COMPLETE, OnCompleteLoad);
-			//loader.load(new URLRequest("enable1.xml"));
-			loader.load(new URLRequest("dictionnary01.xml"));
-		}
-		
-		public function Validate(aWord:String):Boolean
-		{
-			return mWordDictionary[aWord];
-		}
-		
-		private function OnCompleteLoad(aEvent:Event):void
-		{
-			(aEvent.currentTarget as URLLoader).removeEventListener(Event.COMPLETE, OnCompleteLoad);
 			
-			var data:XML = new XML(aEvent.target.data);
+			var data:XML = new XML(WordDictionary.GRADE_1);
 			var parsedData:Array = data.text()[0].split("\n");
 			var word:String;
 			mWordDictionary = { };
@@ -67,8 +49,11 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 				mWordDictionary[word] = true;
 				mWordList.push(word);
 			}
-			
-			dispatchEvent(new WordValidatorEvent(WordValidatorEvent.LOAD_COMPLETE));
+		}
+		
+		public function Validate(aWord:String):Boolean
+		{
+			return mWordDictionary[aWord];
 		}
 	}
 }

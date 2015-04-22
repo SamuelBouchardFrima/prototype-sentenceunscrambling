@@ -17,6 +17,8 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		public static var MiniBitmap:Class;
 		[Embed(source = "../../../../../../art/icon-signal.png")]
 		public static var RadioSignalBitmap:Class;
+		[Embed(source = "../../../../../../art/icon-recycle.png")]
+		public static var RecyclingBitmap:Class;
 		[Embed(source = "../../../../../../art/icon-pizza.png")]
 		public static var PizzaButtonBitmap:Class;
 		[Embed(source = "../../../../../../art/icon-coffe-maker.png")]

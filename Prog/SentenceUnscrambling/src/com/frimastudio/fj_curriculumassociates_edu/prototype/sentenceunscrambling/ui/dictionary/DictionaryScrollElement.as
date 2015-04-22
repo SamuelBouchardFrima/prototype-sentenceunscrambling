@@ -2,10 +2,12 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 {
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.Asset;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.objective.ObjectiveManager;
+	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.recycling.RecyclingManager;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.IconUIButton;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.UIButton;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.UIManager;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.UIScrollElement;
+	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.UIScrollElementEvent;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.UIType;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.word.Word;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.word.WordCollection;
@@ -20,6 +22,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		private var mWordField:TextField;
 		private var mRadioButton:UIButton;
 		private var mObjectiveButton:UIButton;
+		private var mRecycleButton:UIButton;
 		
 		public function DictionaryScrollElement(aSize:Point, aWord:Word)
 		{
@@ -34,30 +37,37 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			format.align = "center";
 			
 			mWordField = new TextField();
-			mWordField.width = aSize.x - (buttonSize.x * 2) - 12;
+			mWordField.width = aSize.x - (buttonSize.x * 3) - 20;
 			mWordField.height = buttonSize.y;
-			mWordField.x = 0;
+			mWordField.x = 4;
 			mWordField.y = buttonSize.y * -0.5;
 			mWordField.text = mWord.WordString;
 			mWordField.selectable = false;
 			mWordField.setTextFormat(format);
+			//mWordField.border = true;
 			addChild(mWordField);
 			
 			mRadioButton = new IconUIButton(buttonSize, Asset.RadioSignalBitmap);
-			mRadioButton.x = aSize.x - (buttonSize.x * 1.5) - 8;
+			mRadioButton.x = aSize.x - (buttonSize.x * 2.5) - 12;
 			mRadioButton.y = 0;
 			mRadioButton.addEventListener(MouseEvent.CLICK, OnClickRadioButton);
 			addChild(mRadioButton);
 			
 			var objective:Boolean = ObjectiveManager.Instance.HasWordObjective(mWord);
 			mObjectiveButton = new IconUIButton(buttonSize, Asset.ObjectiveButtonBitmap, (objective ? 0x00FF00 : 0xFF0000));
-			mObjectiveButton.x = aSize.x - (buttonSize.x * 0.5) - 4;
+			mObjectiveButton.x = aSize.x - (buttonSize.x * 1.5) - 8;
 			mObjectiveButton.y = 0;
 			if (objective)
 			{
 				mObjectiveButton.addEventListener(MouseEvent.CLICK, OnClickObjectiveButton);
 			}
 			addChild(mObjectiveButton);
+			
+			mRecycleButton = new IconUIButton(buttonSize, Asset.RecyclingBitmap);
+			mRecycleButton.x = aSize.x - (buttonSize.x * 0.5) - 4;
+			mRecycleButton.y = 0;
+			mRecycleButton.addEventListener(MouseEvent.CLICK, OnClickRecycleButton);
+			addChild(mRecycleButton);
 		}
 		
 		override public function Dispose():void
@@ -81,6 +91,13 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 				WordCollection.Instance.RemoveWord(mWord);
 				UIManager.Instance.CurrentUI = new UIType.OBJECTIVE.UIClass();
 			}
+		}
+		
+		private function OnClickRecycleButton(aEvent:MouseEvent):void
+		{
+			++RecyclingManager.Instance.RecyclingUnit;
+			WordCollection.Instance.RemoveWord(mWord);
+			dispatchEvent(new UIScrollElementEvent(UIScrollElementEvent.DELETE));
 		}
 	}
 }

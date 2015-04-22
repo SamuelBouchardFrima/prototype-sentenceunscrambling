@@ -34,22 +34,27 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			
 			if (aLabel)
 			{
-				var format:TextFormat = new TextFormat();
-				format.size = aSize.y * 0.75;
-				format.bold = true;
-				format.align = "center";
-				
-				var label:TextField = new TextField();
-				label.text = aLabel;
-				label.x = aSize.x * -0.5;
-				label.y = aSize.y * -0.5;
-				label.width = aSize.x;
-				label.height = aSize.y;
-				label.selectable = false;
-				label.setTextFormat(format);
-				label.autoSize = TextFieldAutoSize.CENTER;
-				addChild(label);
+				InitLabel(aLabel);
 			}
+		}
+		
+		protected function InitLabel(aLabel:String):void
+		{
+			var format:TextFormat = new TextFormat();
+			format.size = mSize.y * 0.75;
+			format.bold = true;
+			format.align = "center";
+			
+			var label:TextField = new TextField();
+			label.text = aLabel;
+			label.x = mSize.x * -0.5;
+			label.y = mSize.y * -0.5;
+			label.width = mSize.x;
+			label.height = mSize.y;
+			label.selectable = false;
+			label.setTextFormat(format);
+			label.autoSize = TextFieldAutoSize.CENTER;
+			addChild(label);
 		}
 	}
 }

@@ -16,6 +16,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		private var mHomeButton:UIButton;
 		private var mCraftingButton:UIButton;
 		private var mScrollbox:DictionaryScrollbox;
+		private var mRecyclingBar:RecyclingUIProgressBar;
 		
 		public function DictionaryUI()
 		{
@@ -39,6 +40,11 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			mScrollbox.x = 400;
 			mScrollbox.y = 300;
 			addChild(mScrollbox);
+			
+			mRecyclingBar = new RecyclingUIProgressBar();
+			mRecyclingBar.x = 400;
+			mRecyclingBar.y = 550;
+			addChild(mRecyclingBar);
 		}
 		
 		override public function Dispose():void
@@ -47,6 +53,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			mCraftingButton.removeEventListener(MouseEvent.CLICK, OnClickCraftingButton);
 			
 			mScrollbox.Dispose();
+			mRecyclingBar.Dispose();
 			
 			super.Dispose();
 		}

@@ -4,6 +4,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.dictionary.DictionaryUI;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.grooming.GroomingUI;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.objective.ObjectiveUI;
+	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.unscrambling.UnscramblingUI;
 	
 	public class UIType
 	{
@@ -12,6 +13,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		public static var GROOMING:UIType = new UIType(2, "GROOMING", GroomingUI);
 		public static var DICTIONARY:UIType = new UIType(3, "DICTIONARY", DictionaryUI);
 		public static var OBJECTIVE:UIType = new UIType(4, "OBJECTIVE", ObjectiveUI);
+		public static var UNSCRAMBLING:UIType = new UIType(5, "UNSCRAMBLING", UnscramblingUI);
 		
 		private var mID:int;
 		private var mDescription:String;

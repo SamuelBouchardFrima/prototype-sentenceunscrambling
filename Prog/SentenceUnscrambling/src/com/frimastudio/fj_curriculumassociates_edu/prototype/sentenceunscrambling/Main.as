@@ -4,8 +4,6 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.HomeUI;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.UIManager;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.UIType;
-	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.word.WordValidator;
-	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.word.WordValidatorEvent;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
@@ -33,12 +31,6 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			
 			addChild(UIManager.Instance.UIContainer);
 			
-			WordValidator.Instance.addEventListener(WordValidatorEvent.LOAD_COMPLETE, OnLoadCompleteWordValidator);
-			WordValidator.Instance.Load();
-		}
-		
-		private function OnLoadCompleteWordValidator(aEvent:WordValidatorEvent):void
-		{
 			ObjectiveManager.Instance.Init();
 			
 			UIManager.Instance.CurrentUI = new UIType.HOME.UIClass();

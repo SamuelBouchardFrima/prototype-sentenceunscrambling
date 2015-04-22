@@ -55,6 +55,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			
 			for (var i:int = 0, end:int = mElementList.length; i < end; ++i)
 			{
+				mElementList[i].removeEventListener(UIScrollElementEvent.DELETE, OnDeleteElement);
 				mElementList[i].Dispose();
 			}
 		}
@@ -63,6 +64,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		{
 			aElement.x = 0;
 			aElement.y = (mElementList.length * mElementSize.y) + (mElementSize.y * 0.5);
+			aElement.addEventListener(UIScrollElementEvent.DELETE, OnDeleteElement);
 			mElementContainer.addChild(aElement);
 			mElementList.push(aElement);
 		}
@@ -74,6 +76,21 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			
 			stage.addEventListener(MouseEvent.MOUSE_MOVE, OnMouseMove);
 			stage.addEventListener(MouseEvent.MOUSE_UP, OnMouseUp);
+		}
+		
+		private function OnDeleteElement(aEvent:UIScrollElementEvent):void
+		{
+			var element:UIScrollElement = aEvent.currentTarget as UIScrollElement;
+			var index:int = mElementList.indexOf(element);
+			
+			element.removeEventListener(UIScrollElementEvent.DELETE, OnDeleteElement);
+			element.Dispose();
+			mElementContainer.removeChild(element);
+			mElementList.splice(index, 1);
+			for (var i:int = index, end:int = mElementList.length; i < end; ++i)
+			{
+				mElementList[i].y -= mElementSize.y;
+			}
 		}
 		
 		private function OnMouseMove(aEvent:MouseEvent):void

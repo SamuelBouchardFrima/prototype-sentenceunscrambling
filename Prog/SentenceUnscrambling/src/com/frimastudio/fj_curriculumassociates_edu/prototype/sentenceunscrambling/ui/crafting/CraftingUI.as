@@ -371,13 +371,6 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		
 		override protected function OnClickHomeButton(aEvent:MouseEvent):void
 		{
-			//if (mStartWord)
-			//{
-				//if (mStartWord.Valid)
-				//{
-					//WordCollection.Instance.AddWord(mStartWord);
-				//}
-			//}
 			if (mEquipedUIWordPieceGroup)
 			{
 				var word:Word = CreateWord(mEquipedUIWordPieceGroup.PieceList);
@@ -392,13 +385,6 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		
 		private function OnClickDictionaryButton(aEvent:MouseEvent):void
 		{
-			//if (mStartWord)
-			//{
-				//if (mStartWord.Valid)
-				//{
-					//WordCollection.Instance.AddWord(mStartWord);
-				//}
-			//}
 			if (mEquipedUIWordPieceGroup)
 			{
 				var word:Word = CreateWord(mEquipedUIWordPieceGroup.PieceList);

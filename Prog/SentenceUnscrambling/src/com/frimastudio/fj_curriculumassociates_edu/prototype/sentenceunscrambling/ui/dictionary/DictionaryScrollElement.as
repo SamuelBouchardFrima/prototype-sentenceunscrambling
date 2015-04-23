@@ -20,10 +20,9 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 	{
 		private static const COLOR:Vector.<int> = new <int>
 			[
-				0x0000FF, 0x0055FF, 0x00AAFF, 0x00FFFF, 0x00FFAA, 0x00FF55, 0x00FF00, 0x55FF00, 0xAAFF00,
-				0xFFFF00, 0xFFAA00, 0xFF5500, 0xFF0000, 0xFF0055, 0xFF00AA, 0xFF00FF, 0xAA00FF, 0x5500FF
+				0x0000FF, 0xCCCC00, 0x00FF00, 0xCC00CC, 0xFF0000, 0x00CCCC
 			];
-		private static const COLOR_LENGTH:int = 18;
+		private static var COLOR_LENGTH:int = COLOR.length;
 		
 		private var mWord:Word;
 		private var mWordField:TextField;

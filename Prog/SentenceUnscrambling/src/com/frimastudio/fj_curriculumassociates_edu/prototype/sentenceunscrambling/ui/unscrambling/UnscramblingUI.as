@@ -1,7 +1,6 @@
 package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.unscrambling
 {
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.Asset;
-	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.recycling.RecyclingManager;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.IconUIButton;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.UI;
 	import com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambling.ui.UIButton;
@@ -124,6 +123,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		{
 			if (SentenceValid)
 			{
+				var wordList:Vector.<Word> = new Vector.<Word>();
 				var pieceList:Vector.<WordPiece>;
 				var word:String;
 				var i:int, endi:int, j:int, endj:int;
@@ -131,14 +131,18 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 				{
 					pieceList = new Vector.<WordPiece>();
 					word = mWordList[i].Word;
-					for (j = 0, endj = word.length; j < endj; ++j)
+					if (word.indexOf(".") == -1 && word.indexOf("!") == -1 && word.indexOf("?") == -1 &&
+						word.indexOf(",") == -1 && word.indexOf(";") == -1 && word.indexOf(":") == -1 &&
+						word.indexOf("'") == -1 && word.indexOf("-") == -1)
 					{
-						pieceList.push(new LetterWordPiece(LetterType.RANDOM, word.charAt(j).toLowerCase()));
+						for (j = 0, endj = word.length; j < endj; ++j)
+						{
+							pieceList.push(new LetterWordPiece(LetterType.RANDOM, word.charAt(j).toLowerCase()));
+						}
+						wordList.push(new Word(pieceList));
 					}
-					WordCollection.Instance.AddWord(new Word(pieceList));
 				}
-				RecyclingManager.Instance.RecyclingUnit -= 5;
-				UIManager.Instance.CurrentUI = new UIType.DICTIONARY.UIClass();
+				UIManager.Instance.CurrentUI = new UIType.SELECT_WORD.UIClass(wordList);
 			}
 		}
 		

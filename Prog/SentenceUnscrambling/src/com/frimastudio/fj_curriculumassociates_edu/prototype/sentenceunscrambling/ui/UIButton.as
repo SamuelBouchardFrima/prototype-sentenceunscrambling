@@ -10,6 +10,8 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 	{
 		private var mSize:Point;
 		private var mColor:int;
+		protected var mFormat:TextFormat;
+		protected var mLabel:TextField;
 		
 		public function set Color(aValue:int):void
 		{
@@ -32,6 +34,11 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			mSize = aSize;
 			Color = aColor;
 			
+			mFormat = new TextFormat();
+			mFormat.size = mSize.y * 0.75;
+			mFormat.bold = true;
+			mFormat.align = "center";
+			
 			if (aLabel)
 			{
 				InitLabel(aLabel);
@@ -40,21 +47,16 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		
 		protected function InitLabel(aLabel:String):void
 		{
-			var format:TextFormat = new TextFormat();
-			format.size = mSize.y * 0.75;
-			format.bold = true;
-			format.align = "center";
-			
-			var label:TextField = new TextField();
-			label.text = aLabel;
-			label.x = mSize.x * -0.5;
-			label.y = mSize.y * -0.5;
-			label.width = mSize.x;
-			label.height = mSize.y;
-			label.selectable = false;
-			label.setTextFormat(format);
-			label.autoSize = TextFieldAutoSize.CENTER;
-			addChild(label);
+			mLabel = new TextField();
+			mLabel.text = aLabel;
+			mLabel.x = mSize.x * -0.5;
+			mLabel.y = mSize.y * -0.5;
+			mLabel.width = mSize.x;
+			mLabel.height = mSize.y;
+			mLabel.selectable = false;
+			mLabel.setTextFormat(mFormat);
+			mLabel.autoSize = TextFieldAutoSize.CENTER;
+			addChild(mLabel);
 		}
 	}
 }

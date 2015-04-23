@@ -3,7 +3,8 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 	public class SentenceDictionary
 	{
 		public static const GRADE_1:XML = new XML("<data>" + (<![CDATA[
-mad is Sam~Sam is mad
+mad is . Sam~Sam is mad .
+Sam ? mad is~is Sam mad ?
 			]]>).toString() + "</data>");
 		
 		public function SentenceDictionary()

@@ -28,6 +28,11 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			return WordValidator.Instance.Validate(mWordString);
 		}
 		
+		public function get RecyclingValue():int
+		{
+			return Math.max(Math.round(mWordString.length / mPieceList.length), 1);
+		}
+		
 		public function Word(aPieceList:Vector.<WordPiece>)
 		{
 			mPieceList = aPieceList;

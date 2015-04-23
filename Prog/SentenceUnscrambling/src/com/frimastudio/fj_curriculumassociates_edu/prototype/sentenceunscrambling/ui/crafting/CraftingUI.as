@@ -371,11 +371,19 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		
 		override protected function OnClickHomeButton(aEvent:MouseEvent):void
 		{
-			if (mStartWord)
+			//if (mStartWord)
+			//{
+				//if (mStartWord.Valid)
+				//{
+					//WordCollection.Instance.AddWord(mStartWord);
+				//}
+			//}
+			if (mEquipedUIWordPieceGroup)
 			{
-				if (mStartWord.Valid)
+				var word:Word = CreateWord(mEquipedUIWordPieceGroup.PieceList);
+				if (word.Valid)
 				{
-					WordCollection.Instance.AddWord(mStartWord);
+					WordCollection.Instance.AddWord(word);
 				}
 			}
 			
@@ -384,11 +392,19 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		
 		private function OnClickDictionaryButton(aEvent:MouseEvent):void
 		{
-			if (mStartWord)
+			//if (mStartWord)
+			//{
+				//if (mStartWord.Valid)
+				//{
+					//WordCollection.Instance.AddWord(mStartWord);
+				//}
+			//}
+			if (mEquipedUIWordPieceGroup)
 			{
-				if (mStartWord.Valid)
+				var word:Word = CreateWord(mEquipedUIWordPieceGroup.PieceList);
+				if (word.Valid)
 				{
-					WordCollection.Instance.AddWord(mStartWord);
+					WordCollection.Instance.AddWord(word);
 				}
 			}
 			
@@ -552,8 +568,6 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 				mEquipedUIWordPieceGroup = null;
 				mRadioButton.Color = 0xFF0000;
 			}
-			
-			ClearUnusedWordPiece();
 		}
 	}
 }

@@ -11,9 +11,9 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			return mInstance;
 		}
 		
-		public var mCollection:Dictionary;
+		public var mCollection:Dictionary/*Vector.<Word>*/;
 		
-		public function get Collection():Dictionary
+		public function get Collection():Dictionary/*Vector.<Word>*/
 		{
 			return mCollection;
 		}
@@ -48,15 +48,28 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		{
 			if (!ContainWord(aWord))
 			{
-				mCollection[aWord.WordString] = aWord;
+				mCollection[aWord.WordString] = new Vector.<Word>();
 			}
+			mCollection[aWord.WordString].push(aWord);
 		}
 		
 		public function RemoveWord(aWord:Word):void
 		{
 			if (ContainWord(aWord))
 			{
-				delete mCollection[aWord.WordString];
+				var wordList:Vector.<Word> = mCollection[aWord.WordString] as Vector.<Word>;
+				for (var i:int = 0, end:int = wordList.length; i < end; ++i)
+				{
+					if (aWord == wordList[i])
+					{
+						wordList.splice(i, 1);
+						break;
+					}
+				}
+				if (wordList.length <= 0)
+				{
+					delete mCollection[aWord.WordString];
+				}
 			}
 		}
 	}

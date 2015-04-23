@@ -26,7 +26,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		private var mSentence:Sentence;
 		private var mFirstPosition:Number;
 		
-		public function get DraggedWordPosition():int
+		private function get DraggedWordPosition():int
 		{
 			for (var i:int = 0, end:int = mWordList.length; i < end; ++i)
 			{
@@ -45,6 +45,16 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			return -1;
 		}
 		
+		private function get SentenceValid():Boolean
+		{
+			var sentence:String = "";
+			for (var i:int = 0, end:int = mWordList.length; i < end; ++i)
+			{
+				sentence += (i == 0 ? mWordList[i].Word : " " + mWordList[i].Word);
+			}
+			return sentence == mSentence.Unscrambled;
+		}
+		
 		public function UnscramblingUI()
 		{
 			super();
@@ -57,7 +67,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			mDictionaryButton.addEventListener(MouseEvent.CLICK, OnClickDictionaryButton);
 			addChild(mDictionaryButton);
 			
-			mSubmitButton = new UIButton(buttonSize, ">");
+			mSubmitButton = new UIButton(buttonSize, ">", 0xFF0000);
 			mSubmitButton.x = 400;
 			mSubmitButton.y = 400;
 			mSubmitButton.addEventListener(MouseEvent.CLICK, OnClickSubmitButton);
@@ -77,15 +87,14 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 				mWordList.push(word);
 				sentenceWidth += word.width;
 			}
+			mWordList[0].First = true;
 			
 			mFirstPosition = 400 - (sentenceWidth * 0.5);
-			trace("First position: " + mFirstPosition);
 			var offset:Number = mFirstPosition;
 			for (i = 0, end = mWordList.length; i < end; ++i)
 			{
 				mWordList[i].x = offset + (mWordList[i].width * 0.5);
 				mWordList[i].y = 250;
-				trace("Word " + mWordList[i].Word + ": " + mWordList[i].x);
 				addChild(mWordList[i]);
 				offset += mWordList[i].width;
 			}
@@ -113,23 +122,18 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		
 		private function OnClickSubmitButton(aEvent:MouseEvent):void
 		{
-			var wordList:Vector.<String> = new Vector.<String>();
-			var i:int, endi:int;
-			for (i = 0, endi = mWordList.length; i < endi; ++i)
+			if (SentenceValid)
 			{
-				wordList.push(mWordList[i].Word);
-			}
-			
-			if (wordList.join(" ") == mSentence.Unscrambled)
-			{
-				var j:int, endj:int;
 				var pieceList:Vector.<WordPiece>;
-				for (i = 0, endi = wordList.length; i < endi; ++i)
+				var word:String;
+				var i:int, endi:int, j:int, endj:int;
+				for (i = 0,  endi = mWordList.length; i < endi; ++i)
 				{
 					pieceList = new Vector.<WordPiece>();
-					for (j = 0, endj = wordList[i].length; j < endj; ++j)
+					word = mWordList[i].Word;
+					for (j = 0, endj = word.length; j < endj; ++j)
 					{
-						pieceList.push(new LetterWordPiece(LetterType.RANDOM, wordList[i].charAt(j).toLowerCase()));
+						pieceList.push(new LetterWordPiece(LetterType.RANDOM, word.charAt(j).toLowerCase()));
 					}
 					WordCollection.Instance.AddWord(new Word(pieceList));
 				}
@@ -149,6 +153,8 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 				mWordList[i].x -= mDraggedWord.width;
 			}
 			
+			mSubmitButton.Color = 0xFF0000;
+			
 			stage.addEventListener(MouseEvent.MOUSE_MOVE, OnMouseMove);
 			stage.addEventListener(MouseEvent.MOUSE_UP, OnMouseUp);
 		}
@@ -159,6 +165,11 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			
 			var current:int = mWordList.indexOf(mDraggedWord);
 			var position:int = DraggedWordPosition;
+			var index:int = (mWordList[0] == mDraggedWord ? 1 : 0);
+			var first:Boolean = (position == index);
+			
+			mDraggedWord.First = first;
+			mWordList[index].First = !first;
 			
 			var offset:Number = mFirstPosition;
 			for (var i:int = 0, end:int = mWordList.length; i < end; ++i)
@@ -207,6 +218,8 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			}
 			
 			mDraggedWord = null;
+			
+			mSubmitButton.Color = (SentenceValid ? 0x00FF00 : 0xFF0000);
 		}
 	}
 }

@@ -18,6 +18,13 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 	
 	public class DictionaryScrollElement extends UIScrollElement
 	{
+		private static const COLOR:Vector.<int> = new <int>
+			[
+				0x0000FF, 0x0055FF, 0x00AAFF, 0x00FFFF, 0x00FFAA, 0x00FF55, 0x00FF00, 0x55FF00, 0xAAFF00,
+				0xFFFF00, 0xFFAA00, 0xFF5500, 0xFF0000, 0xFF0055, 0xFF00AA, 0xFF00FF, 0xAA00FF, 0x5500FF
+			];
+		private static const COLOR_LENGTH:int = 18;
+		
 		private var mWord:Word;
 		private var mWordField:TextField;
 		private var mRadioButton:UIButton;
@@ -43,8 +50,14 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			mWordField.y = buttonSize.y * -0.5;
 			mWordField.text = mWord.WordString;
 			mWordField.selectable = false;
-			mWordField.setTextFormat(format);
-			//mWordField.border = true;
+			var index:int = 0, next:int;
+			for (var i:int = 0, end:int = mWord.PieceList.length; i < end; ++i)
+			{
+				format.color = COLOR[i % COLOR_LENGTH];
+				next = index + mWord.PieceList[i].PieceString.length;
+				mWordField.setTextFormat(format, index, next);
+				index = next;
+			}
 			addChild(mWordField);
 			
 			mRadioButton = new IconUIButton(buttonSize, Asset.RadioSignalBitmap);
@@ -95,7 +108,7 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		
 		private function OnClickRecycleButton(aEvent:MouseEvent):void
 		{
-			++RecyclingManager.Instance.RecyclingUnit;
+			RecyclingManager.Instance.RecyclingUnit += mWord.RecyclingValue;
 			WordCollection.Instance.RemoveWord(mWord);
 			dispatchEvent(new UIScrollElementEvent(UIScrollElementEvent.DELETE));
 		}

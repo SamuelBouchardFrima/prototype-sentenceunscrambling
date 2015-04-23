@@ -14,6 +14,12 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 			return mWord;
 		}
 		
+		public function set First(aValue:Boolean):void
+		{
+			mLabel.text = (aValue ? mWord.charAt(0).toUpperCase() + mWord.substr(1) : mWord);
+			mLabel.setTextFormat(mFormat);
+		}
+		
 		public function WordUIButton(aSize:Point, aWord:String, aColor:int=0xFFFFFF)
 		{
 			var size:Point = aSize.clone();

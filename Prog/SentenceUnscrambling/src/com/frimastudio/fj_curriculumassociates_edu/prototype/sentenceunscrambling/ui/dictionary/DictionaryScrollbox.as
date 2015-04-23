@@ -12,9 +12,12 @@ package com.frimastudio.fj_curriculumassociates_edu.prototype.sentenceunscrambli
 		{
 			super(aSize);
 			
-			for each (var word:Word in WordCollection.Instance.Collection)
+			for each (var wordList:Vector.<Word> in WordCollection.Instance.Collection)
 			{
-				AddElement(new DictionaryScrollElement(new Point(aSize.x, 30), word));
+				for (var i:int = 0, end:int = wordList.length; i < end; ++i)
+				{
+					AddElement(new DictionaryScrollElement(new Point(aSize.x, 30), wordList[i]));
+				}
 			}
 		}
 	}
